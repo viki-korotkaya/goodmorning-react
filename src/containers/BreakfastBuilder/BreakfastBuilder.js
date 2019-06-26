@@ -29,7 +29,7 @@ class BreakfastBuilder extends Component {
         totalPrice: 0,
         purchasable: false,
         purchasing: false
-    }
+    };
 
     updatePurchaseState (items) {
         const sum = Object.keys( items )
@@ -40,7 +40,7 @@ class BreakfastBuilder extends Component {
                 return sum + el;
             }, 0 );
         this.setState( { purchasable: sum > 0 } );
-    }
+    };
 
     addItemHandler = ( type ) => {
         const oldCount = this.state.items[type];
@@ -54,7 +54,7 @@ class BreakfastBuilder extends Component {
         const newPrice = oldPrice + priceAddition;
         this.setState( { totalPrice: newPrice, items: updatedItems } );
         this.updatePurchaseState(updatedItems);
-    }
+    };
 
     removeItemHandler = ( type ) => {
         const oldCount = this.state.items[type];
@@ -71,19 +71,19 @@ class BreakfastBuilder extends Component {
         const newPrice = oldPrice - priceDeduction;
         this.setState( { totalPrice: newPrice, items: updatedItems } );
         this.updatePurchaseState(updatedItems);
-    }
+    };
 
     purchaseHandler = () => {
         this.setState({purchasing: true});
-    }
+    };
 
     purchaseCancelHandler = () => {
         this.setState({purchasing: false});
-    }
+    };
 
     purchaseContinueHandler = () => {
         alert('You continue!');
-    }
+    };
 
     render () {
         const disabledInfo = {
@@ -96,11 +96,11 @@ class BreakfastBuilder extends Component {
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary
-                        items={this.state.items}
-                        price={this.state.totalPrice}
-                        purchaseCancelled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler} />
+                    {/*<OrderSummary*/}
+                    {/*    items={this.state.items}*/}
+                    {/*    price={this.state.totalPrice}*/}
+                    {/*    purchaseCancelled={this.purchaseCancelHandler}*/}
+                    {/*    purchaseContinued={this.purchaseContinueHandler} />*/}
                 </Modal>
                 <Breakfast items={this.state.items} />
                 <BuildControls

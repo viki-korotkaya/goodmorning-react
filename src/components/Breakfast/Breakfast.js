@@ -14,7 +14,7 @@ const breakfast = ( props ) => {
             return arr.concat(el)
         }, []);
     if (transformedItems.length === 0) {
-        transformedItems = <p>Please start adding ingredients!</p>;
+        transformedItems = <p>Please start creating your breakfast!</p>;
     }
     return (
         <div className={classes.Breakfast}>
