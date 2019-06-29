@@ -3,10 +3,11 @@
     box-sizing: border-box;
     display: block;
     width: 100%;
+    font-weight: bold;
 }
 
 .NavigationItem a {
-    color: #8F5C2C;
+    color: #ffb3b7;
     text-decoration: none;
     width: 100%;
     box-sizing: border-box;
@@ -38,8 +39,10 @@
     .NavigationItem a:hover,
     .NavigationItem a:active,
     .NavigationItem a.active {
-        background-color: #8F5C2C;
-        border-bottom: 4px solid #40A4C8;
-        color: white;
+        background-color: #f4f3f0;
+        border-top: 4px solid #e59193;
+        border-bottom: 4px solid #e59193;
+        color: #393939;
+
     }
 }

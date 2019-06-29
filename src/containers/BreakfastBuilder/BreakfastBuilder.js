@@ -102,7 +102,7 @@ class BreakfastBuilder extends Component {
                     {/*    purchaseCancelled={this.purchaseCancelHandler}*/}
                     {/*    purchaseContinued={this.purchaseContinueHandler} />*/}
                 </Modal>
-                <Breakfast items={this.state.items} />
+
                 <BuildControls
                     itemAdded={this.addItemHandler}
                     itemientRemoved={this.removeItemtHandler}
@@ -110,6 +110,7 @@ class BreakfastBuilder extends Component {
                     purchasable={this.state.purchasable}
                     ordered={this.purchaseHandler}
                     price={this.state.totalPrice} />
+                <Breakfast items={this.state.items} />
             </Aux>
         );
     }
