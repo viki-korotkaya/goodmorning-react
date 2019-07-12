@@ -5,14 +5,16 @@
     margin: 5px 0;
 }
 
+
+
 .BuildControl button {
     display: block;
     font: inherit;
     padding: 5px;
     margin: 0 5px;
-    width: 34px;
+    width: 40px;
     border: 1px solid #aa817d;
-    border-radius: 20px;
+
     cursor: pointer;
     outline: none;
     /*flex: 1 0 50%;*/
@@ -33,11 +35,13 @@
 }
 
 .Label {
-    flex: 0 1 100%;
+
     padding: 10px;
     font-weight: bold;
     width: 80px;
 }
+
+
 
 .BuildControl .Less {
     background-color: #d3adaf;
@@ -57,4 +61,15 @@
 .BuildControl .More:hover,.BuildControl .More:active {
     background-color: #cd4d53;
     color: white;
+}
+
+@media (min-width: 650px) {
+    .Label {
+        flex: 0 1 100%;
+    }
+
+    .BuildControl button {
+        border-radius: 20px;
+        width: 34px;
+    }
 }

@@ -6,8 +6,10 @@
     align-items: center;
     box-shadow: 0 2px 1px #ccc;
     margin: 10px auto;
-    padding: 10px 0;
+    padding-top: 72px;
+    padding-bottom: 10px;
 }
+
 
 .BuildControls p {
     color: white;
@@ -16,6 +18,13 @@
 .BuildControlsButtons {
     display: flex;
     align-items: center;
+    flex-flow: column;
+}
+
+@media (min-width: 650px) {
+    .BuildControlsButtons {
+        flex-flow: row;
+    }
 }
 
 

@@ -1,13 +1,15 @@
 .Breakfast {
-    width: 100%;
+    width: 350px;
     margin: 0 auto;
-    /*padding: 20%;*/
+    padding: 5px;
     height: 162px;
     text-align: center;
     font-weight: bold;
     font-size: 1.2rem;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+
 }
 
 .Breakfast p {
@@ -16,22 +18,10 @@
 
 
 
-@media (min-width: 500px) and (min-height: 400px) {
+@media (min-width: 600px) {
     .Breakfast {
-        width: 350px;
+        flex-wrap: nowrap;
 
     }
 }
 
-@media (min-width: 500px) and (min-height: 401px) {
-    .Breakfast {
-        width: 450px;
-
-    }
-}
-
-@media (min-width: 1000px) and (min-height: 700px) {
-    .Breakfast {
-        width: 700px;
-    }
-}
