@@ -18,22 +18,22 @@ class BreakfastItem extends Component {
 
         switch ( this.props.type ) {
             case ( 'coffee' ):
-                item = <div className={classes.Item}><img src={coffee} alt="Cup of coffee" /><p>Quantity:</p></div>;
+                item = <div className={classes.Item}><img src={coffee} alt="Cup of coffee" /><p>Qty: {this.props.qty}</p></div>;
                 break;
             case ( 'tea' ):
-                item = <div className={classes.Item}><img src={tea} alt="Cup of tea" /><p>Quantity:</p></div>;
+                item = <div className={classes.Item}><img src={tea} alt="Cup of tea" /><p>Qty: {this.props.qty}</p></div>;
                 break;
             case ( 'sugar' ):
-                item = <div className={classes.Item}><img src={sugar} alt="Sugar" /><p>Quantity:</p></div>;
+                item = <div className={classes.Item}><img src={sugar} alt="Sugar" /><p>Qty: {this.props.qty}</p></div>;
                 break;
             case ( 'croissant' ):
-                item = <div className={classes.Item}><img src={croissant} alt="Croissant" /><p>Quantity:</p></div>;
+                item = <div className={classes.Item}><img src={croissant} alt="Croissant" /><p>Qty: {this.props.qty}</p></div>;
                 break;
             case ( 'yogurt' ):
-                item = <div className={classes.Item}><img src={yogurt} alt="Yogurt" /><p>Quantity:</p></div>;
+                item = <div className={classes.Item}><img src={yogurt} alt="Yogurt" /><p>Qty: {this.props.qty}</p></div>;
                 break;
             case ( 'salad' ):
-                item = <div className={classes.Item}><img src={salad} alt="Salad" /><p>Quantity:</p></div>;
+                item = <div className={classes.Item}><img src={salad} alt="Salad" /><p>Qty: {this.props.qty}</p></div>;
                 break;
             default:
                 item = null;

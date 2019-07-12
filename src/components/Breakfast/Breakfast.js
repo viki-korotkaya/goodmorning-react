@@ -5,10 +5,13 @@ import BreakfastItem from './BreakfastItem/BreakfastItem';
 
 const breakfast = ( props ) => {
     let transformedItems = Object.keys( props.items )
+        .filter(igKey => props.items[igKey] > 0)
         .map( igKey => {
-            return [...Array( props.items[igKey] )].map( ( _, i ) => {
-                return <BreakfastItem key={igKey + i} type={igKey} />;
-            } );
+            return <BreakfastItem key={igKey} type={igKey} qty={props.items[igKey]}/>;
+
+            // return [...Array( props.items[igKey] )].map( ( _, i ) => {
+
+            // } );
         } )
         .reduce((arr, el) => {
             return arr.concat(el)

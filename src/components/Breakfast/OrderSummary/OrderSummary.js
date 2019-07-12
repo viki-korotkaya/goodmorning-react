@@ -5,11 +5,11 @@ import Button from '../../UI/Button/Button';
 
 class OrderSummary extends Component {
     render () {
-        const itemSummary = Object.keys( this.props.item )
+        const itemSummary = Object.keys( this.props.items )
             .map( igKey => {
                 return (
                     <li key={igKey}>
-                        <span style={{ textTransform: 'capitalize' }}>{igKey}</span>: {this.props.item[igKey]}
+                        <span style={{ textTransform: 'capitalize' }}>{igKey}</span>: {this.props.items[igKey]}
                     </li> );
             } );
 

@@ -5,6 +5,8 @@ import Breakfast from '../../components/Breakfast/Breakfast';
 import BuildControls from '../../components/Breakfast/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Breakfast/OrderSummary/OrderSummary';
+import axios from '../../axios-orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const ITEM_PRICES = {
     coffee: 4.5,
@@ -28,7 +30,8 @@ class BreakfastBuilder extends Component {
         },
         totalPrice: 0,
         purchasable: false,
-        purchasing: false
+        purchasing: false,
+        loading: false
     };
 
     updatePurchaseState (items) {
@@ -56,7 +59,7 @@ class BreakfastBuilder extends Component {
         this.updatePurchaseState(updatedItems);
     };
 
-    removeItemHandler = ( type ) => {
+    removeItemtHandler = ( type ) => {
         const oldCount = this.state.items[type];
         if ( oldCount <= 0 ) {
             return;
@@ -82,7 +85,28 @@ class BreakfastBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
-        alert('You continue!');
+        console.log(this.state);
+        this.setState( { loading: true } );
+        const order = {
+            items: this.state.items,
+            price: this.state.totalPrice,
+            customer: {
+                name: 'Vi Ka',
+                address: {
+                    street: 'Blalala 12',
+                    zipCode: '01234',
+                    country: 'US'
+                },
+                email: 'test@test.com'
+            }
+        };
+        axios.post( '/orders.json', order )
+            .then( response => {
+                this.setState( { loading: false, purchasing: false } );
+            } )
+            .catch( error => {
+                this.setState( { loading: false, purchasing: false } );
+            } );
     };
 
     render () {
@@ -92,25 +116,37 @@ class BreakfastBuilder extends Component {
         for ( let key in disabledInfo ) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-        // {salad: true, meat: false, ...}
+        let orderSummary = null;
+        let breakfast = this.state.error ? <p>Items can't be loaded!></p> : <Spinner />;
+
+        if (this.state.items){
+            breakfast = (
+                <Aux>
+                    <BuildControls
+                        itemAdded={this.addItemHandler}
+                        itemRemoved={this.removeItemtHandler}
+                        disabled={disabledInfo}
+                        purchasable={this.state.purchasable}
+                        ordered={this.purchaseHandler}
+                        price={this.state.totalPrice} />
+                    <Breakfast items={this.state.items} />
+                </Aux>
+            );
+            orderSummary = <OrderSummary
+                items={this.state.items}
+                price={this.state.totalPrice}
+                purchaseCancelled={this.purchaseCancelHandler}
+                purchaseContinued={this.purchaseContinueHandler} />;
+        }
+        if ( this.state.loading ) {
+            orderSummary = <Spinner />;
+        }
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    {/*<OrderSummary*/}
-                    {/*    items={this.state.items}*/}
-                    {/*    price={this.state.totalPrice}*/}
-                    {/*    purchaseCancelled={this.purchaseCancelHandler}*/}
-                    {/*    purchaseContinued={this.purchaseContinueHandler} />*/}
+                    {orderSummary}
                 </Modal>
-
-                <BuildControls
-                    itemAdded={this.addItemHandler}
-                    itemientRemoved={this.removeItemtHandler}
-                    disabled={disabledInfo}
-                    purchasable={this.state.purchasable}
-                    ordered={this.purchaseHandler}
-                    price={this.state.totalPrice} />
-                <Breakfast items={this.state.items} />
+                {breakfast}
             </Aux>
         );
     }
