@@ -7,6 +7,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Breakfast/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 const ITEM_PRICES = {
     coffee: 4.5,
@@ -21,18 +22,29 @@ class BreakfastBuilder extends Component {
 
     state = {
         items: {
-            coffee: 0,
-            tea: 0,
-            sugar: 0,
-            croissant: 0,
-            yogurt: 0,
-            salad: 0
+            coffee: null,
+            tea: null,
+            sugar: null,
+            croissant: null,
+            yogurt: null,
+            salad: null
         },
         totalPrice: 0,
         purchasable: false,
         purchasing: false,
-        loading: false
+        loading: false,
+        error: false
     };
+
+    componentDidMount() {
+        axios.get('https://goodmorning-react.firebaseio.com/items.json')
+            .then(response => {
+                this.setState({items: response.data})
+            })
+            .catch(error => {
+                this.setState({error: true})
+            });
+    }
 
     updatePurchaseState (items) {
         const sum = Object.keys( items )
@@ -141,6 +153,7 @@ class BreakfastBuilder extends Component {
         if ( this.state.loading ) {
             orderSummary = <Spinner />;
         }
+
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
@@ -152,4 +165,4 @@ class BreakfastBuilder extends Component {
     }
 }
 
-export default BreakfastBuilder;
+export default withErrorHandler(BreakfastBuilder, axios);
