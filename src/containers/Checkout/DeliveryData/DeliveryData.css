@@ -1,0 +1,16 @@
+.DeliveryData {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.DeliveryData p {
+    margin: 20px auto;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.Input {
+    display: block;
+}
