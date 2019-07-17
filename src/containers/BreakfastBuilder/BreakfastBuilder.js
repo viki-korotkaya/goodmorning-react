@@ -98,7 +98,16 @@ class BreakfastBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
-        this.props.history.push('/checkout');
+        const queryParams = [];
+        for (let i in this.state.items){
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.items[i]))
+        }
+        queryParams.push('price=' + this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     };
 
     render () {

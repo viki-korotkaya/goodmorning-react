@@ -6,30 +6,25 @@ import Button from "../../components/UI/Button/Button";
 
 class Checkout extends Component {
     state = {
-        items: {
-            coffee: 1,
-            tea: 2,
-            sugar: 1,
-            croissant: 0,
-            yogurt: 1,
-            salad: 1
-        },
+        items: null,
         price: 0
     }
 
-    // componentWillMount () {
-    //     const query = new URLSearchParams( this.props.location.search );
-    //     const items = {};
-    //     let price = 0;
-    //     for ( let param of query.entries() ) {
-    //         if (param[0] === 'price') {
-    //             price = param[1];
-    //         } else {
-    //             items[param[0]] = +param[1];
-    //         }
-    //     }
-    //     this.setState( { items: items, totalPrice: price } );
-    // }
+    componentWillMount() {
+        const query = new URLSearchParams(this.props.location.search);
+        console.log(query);
+        console.log(query.entries());
+        const items = {};
+        let price = 0;
+        for (let param of query.entries()){
+            if (param[0] == 'price'){
+                price =  param[1];
+            } else {
+                items[param[0]] = +param[1];
+            }
+        }
+        this.setState({items: items, price: price});
+    }
 
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
@@ -66,10 +61,13 @@ class Checkout extends Component {
     render () {
         return (
             <div>
+
                 <CheckoutSummary
                     items={this.state.items}
                     />
                 <DeliveryData
+                    items={this.state.items}
+                    price={this.state.price}
                     canceled={this.checkoutCancelledHandler}
                     placedorder={this.checkoutContinuedHandler}/>
 

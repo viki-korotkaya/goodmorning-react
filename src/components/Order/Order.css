@@ -1,0 +1,11 @@
+.Order {
+    width: 80%;
+    background: url("../../assets/images/cart.png")  no-repeat;
+    background-position: 5px center;
+    background-size: 70px 70px;
+    border: 1px solid #e2cdc9;
+    box-shadow: 0 2px 3px #c6a09d;
+    padding-left: 75px;
+    margin: 15px auto;
+    box-sizing: border-box;
+}
