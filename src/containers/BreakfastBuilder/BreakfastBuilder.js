@@ -8,6 +8,7 @@ import OrderSummary from '../../components/Breakfast/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import Checkout from '../Checkout/Checkout';
 
 const ITEM_PRICES = {
     coffee: 4.5,
@@ -97,28 +98,7 @@ class BreakfastBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
-        console.log(this.state);
-        this.setState( { loading: true } );
-        const order = {
-            items: this.state.items,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Vi Ka',
-                address: {
-                    street: 'Blalala 12',
-                    zipCode: '01234',
-                    country: 'US'
-                },
-                email: 'test@test.com'
-            }
-        };
-        axios.post( '/orders.json', order )
-            .then( response => {
-                this.setState( { loading: false, purchasing: false } );
-            } )
-            .catch( error => {
-                this.setState( { loading: false, purchasing: false } );
-            } );
+        this.props.history.push('/checkout');
     };
 
     render () {

@@ -1,0 +1,10 @@
+.CheckoutSummary {
+    margin-top: 80px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.CheckoutSummary>p {
+    margin: 10px auto;
+}
