@@ -8,10 +8,6 @@ const breakfast = ( props ) => {
         .filter(igKey => props.items[igKey] > 0)
         .map( igKey => {
             return <BreakfastItem key={igKey} type={igKey} qty={props.items[igKey]}/>;
-
-            // return [...Array( props.items[igKey] )].map( ( _, i ) => {
-
-            // } );
         } )
         .reduce((arr, el) => {
             return arr.concat(el)

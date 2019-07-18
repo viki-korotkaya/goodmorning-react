@@ -1,11 +1,27 @@
 .Order {
     width: 80%;
     background: url("../../assets/images/cart.png")  no-repeat;
-    background-position: 5px center;
+    background-position: 5px 5px;
     background-size: 70px 70px;
     border: 1px solid #e2cdc9;
     box-shadow: 0 2px 3px #c6a09d;
     padding-left: 75px;
+    padding-bottom: 10px;
     margin: 15px auto;
     box-sizing: border-box;
+}
+
+.Order h4 {
+    margin-bottom: 0;
+}
+
+.Order p {
+    padding: 0;
+    padding-left: 10px;
+    margin: 0;
+    text-transform: capitalize;
+}
+
+Order:last-child {
+    margin: 5px 0;
 }
