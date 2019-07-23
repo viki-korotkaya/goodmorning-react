@@ -20,7 +20,8 @@ class DeliveryData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             street: {
                 elementConfig: {
@@ -31,7 +32,8 @@ class DeliveryData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             zipCode: {
                 elementConfig: {
@@ -40,9 +42,12 @@ class DeliveryData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    minLength: 5,
+                    maxLength: 6
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             country: {
                 elementConfig: {
@@ -53,7 +58,8 @@ class DeliveryData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             email: {
                 elementConfig: {
@@ -64,20 +70,43 @@ class DeliveryData extends Component {
                 validation: {
                     required: true
                 },
-                valid: false
+                valid: false,
+                touched: false
             }
 
         },
+        formIsValid: false,
         loading: false
     };
 
     checkValidity(val, rules){
         let isValid = false;
-        if(rules.required){
-            console.log(isValid);
-            isValid = val.trim !=='';
-            console.log(isValid);
-        }
+
+        let requiredRule = (() =>{
+            if(rules.required){
+                return  val.trim() !=='';
+            } else {
+                return true;
+            }
+        })();
+
+        let minLengthRule = (() =>{
+            if(rules.minLength){
+                return val.length >= rules.minLength;
+            } else {
+                return true;
+            }
+        })();
+
+        let maxLengthRule = (() =>{
+            if(rules.maxLength){
+                return val.length <= rules.maxLength;
+            } else {
+                return true;
+            }
+        })();
+
+        isValid = requiredRule && minLengthRule && maxLengthRule;
         return isValid;
     };
 
@@ -112,9 +141,16 @@ class DeliveryData extends Component {
         };
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        console.log(updatedFormElement);
+        updatedFormElement.touched = true;
+
         changedForm[inputIdentifier] = updatedFormElement;
-        this.setState({orderForm: changedForm});
+
+        let formIsValid = true;
+        for (let identifier in changedForm) {
+            formIsValid = changedForm[identifier].valid && formIsValid;
+        }
+
+        this.setState({orderForm: changedForm, formIsValid: formIsValid});
     };
 
     render (){
@@ -133,10 +169,12 @@ class DeliveryData extends Component {
                         elementConfig={formElement.config.elementConfig}
                         value ={formElement.config.value}
                         changed={(ev) => this.inputChangedHandler(ev, formElement.id)}
+                        invalid={!formElement.config.valid}
+                        touched={formElement.config.touched}
                     />
                 ))}
 
-                <Button btnType="Success">PLACE ORDER</Button>
+                <Button btnType="Success" disabled={!this.state.formIsValid}>PLACE ORDER</Button>
             </form>
         );
         if (this.state.loading){

@@ -1,12 +1,19 @@
 .InputClass {
-
-
-
+    margin: 10px 0;
 }
 
-.InputClass input {
+.InputElement {
     width: 100%;
-    margin: 10px 0;
     padding: 5px;
     box-sizing: border-box;
+}
+
+.InputElement:focus {
+    outline: none;
+    background-color: #ccc;
+}
+
+.Invalid {
+    border: 1px solid red;
+    background-color: #FABEB4;
 }
