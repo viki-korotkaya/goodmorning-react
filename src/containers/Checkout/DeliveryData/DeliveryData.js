@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import classes from './DeliveryData.css';
 import Button from "../../../components/UI/Button/Button";
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
-
 
 class DeliveryData extends Component {
     state = {
@@ -194,4 +194,13 @@ class DeliveryData extends Component {
     }
 };
 
-export default withRouter(DeliveryData);
+const mapStateToProps = state => {
+    return {
+        items: state.items,
+        price: state.totalPrice
+    }
+};
+
+
+
+export default connect(mapStateToProps)(withRouter(DeliveryData));

@@ -9,25 +9,39 @@ const initialState = {
         yogurt: 0,
         salad: 0
     },
-    totalTrice: 0
+    totalPrice: 0
+};
+
+const ITEM_PRICES = {
+    coffee: 4.5,
+    tea: 2.0,
+    sugar: 0.3,
+    croissant: 3.5,
+    yogurt: 3.0,
+    salad: 4.5
 };
 
 const reducer = (state = initialState, action) => {
-    switch (actionTypes) {
-        case actionTypes.ADD_ITEMS:
+    switch (action.type) {
+        case actionTypes.ADD_ITEM:
             return {
                 ...state,
                 items: {
                     ...state.items,
-                    [action.item]: state.items[action.item] + 1
-                }
+                    [action.itemName]: state.items[action.itemName] + 1
+                },
+                totalPrice: state.totalPrice + ITEM_PRICES[action.itemName]
             };
-        case actionTypes.REMOVE_ITEMS:
+        case actionTypes.REMOVE_ITEM:
             return {
-
+                ...state,
+                items: {
+                    ...state.items,
+                    [action.itemName]: state.items[action.itemName] - 1
+                },
+                totalPrice: state.totalPrice - ITEM_PRICES[action.itemName]
             };
-        default:
-            return state;
+        default: return state;
     }
 };
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from "react-redux";
 
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Breakfast from '../../components/Breakfast/Breakfast';
@@ -9,29 +10,12 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Checkout from '../Checkout/Checkout';
-
-const ITEM_PRICES = {
-    coffee: 4.5,
-    tea: 2.0,
-    sugar: 0.3,
-    croissant: 3.5,
-    yogurt: 3.0,
-    salad: 4.5
-};
+import * as actionTypes from '../../store/actions';
 
 class BreakfastBuilder extends Component {
 
     state = {
-        items: {
-            coffee: null,
-            tea: null,
-            sugar: null,
-            croissant: null,
-            yogurt: null,
-            salad: null
-        },
-        totalPrice: 0,
-        purchasable: false,
+
         purchasing: false,
         loading: false,
         error: false
@@ -55,38 +39,7 @@ class BreakfastBuilder extends Component {
             .reduce( ( sum, el ) => {
                 return sum + el;
             }, 0 );
-        this.setState( { purchasable: sum > 0 } );
-    };
-
-    addItemHandler = ( type ) => {
-        const oldCount = this.state.items[type];
-        const updatedCount = oldCount + 1;
-        const updatedItems = {
-            ...this.state.items
-        };
-        updatedItems[type] = updatedCount;
-        const priceAddition = ITEM_PRICES[type];
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice + priceAddition;
-        this.setState( { totalPrice: newPrice, items: updatedItems } );
-        this.updatePurchaseState(updatedItems);
-    };
-
-    removeItemtHandler = ( type ) => {
-        const oldCount = this.state.items[type];
-        if ( oldCount <= 0 ) {
-            return;
-        }
-        const updatedCount = oldCount - 1;
-        const updatedItems = {
-            ...this.state.items
-        };
-        updatedItems[type] = updatedCount;
-        const priceDeduction = ITEM_PRICES[type];
-        const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice - priceDeduction;
-        this.setState( { totalPrice: newPrice, items: updatedItems } );
-        this.updatePurchaseState(updatedItems);
+        return sum > 0;
     };
 
     purchaseHandler = () => {
@@ -98,21 +51,12 @@ class BreakfastBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
-        const queryParams = [];
-        for (let i in this.state.items){
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.items[i]))
-        }
-        queryParams.push('price=' + this.state.totalPrice);
-        const queryString = queryParams.join('&');
-        this.props.history.push({
-            pathname: '/checkout',
-            search: '?' + queryString
-        });
+        this.props.history.push('/checkout');
     };
 
     render () {
         const disabledInfo = {
-            ...this.state.items
+            ...this.props.items
         };
         for ( let key in disabledInfo ) {
             disabledInfo[key] = disabledInfo[key] <= 0
@@ -120,22 +64,22 @@ class BreakfastBuilder extends Component {
         let orderSummary = null;
         let breakfast = this.state.error ? <p>Items can't be loaded!></p> : <Spinner />;
 
-        if (this.state.items){
+        if (this.props.items){
             breakfast = (
                 <Aux>
                     <BuildControls
-                        itemAdded={this.addItemHandler}
-                        itemRemoved={this.removeItemtHandler}
+                        itemAdded={this.props.onItemAdded}
+                        itemRemoved={this.props.onItemRemoved}
                         disabled={disabledInfo}
-                        purchasable={this.state.purchasable}
+                        purchasable={this.updatePurchaseState(this.props.items)}
                         ordered={this.purchaseHandler}
-                        price={this.state.totalPrice} />
-                    <Breakfast items={this.state.items} />
+                        price={this.props.totalPrice} />
+                    <Breakfast items={this.props.items} />
                 </Aux>
             );
             orderSummary = <OrderSummary
-                items={this.state.items}
-                price={this.state.totalPrice}
+                items={this.props.items}
+                price={this.props.totalPrice}
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
         }
@@ -154,4 +98,19 @@ class BreakfastBuilder extends Component {
     }
 }
 
-export default withErrorHandler(BreakfastBuilder, axios);
+const mapStateToProps = state => {
+    return {
+        items: state.items,
+        totalPrice: state.totalPrice
+    }
+};
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onItemAdded: (itemName) => dispatch({type: actionTypes.ADD_ITEM, itemName: itemName}),
+        onItemRemoved: (itemName) => dispatch({type: actionTypes.REMOVE_ITEM, itemName: itemName})
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BreakfastBuilder, axios));
