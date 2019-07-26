@@ -10,7 +10,7 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Checkout from '../Checkout/Checkout';
-import * as actionTypes from '../../store/actions';
+import * as breakfastBuilderActions from '../../store/actions/index';
 
 class BreakfastBuilder extends Component {
 
@@ -108,8 +108,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onItemAdded: (itemName) => dispatch({type: actionTypes.ADD_ITEM, itemName: itemName}),
-        onItemRemoved: (itemName) => dispatch({type: actionTypes.REMOVE_ITEM, itemName: itemName})
+        onItemAdded: (itemName) => dispatch(breakfastBuilderActions.addItem(itemName)),
+        onItemRemoved: (itemName) => dispatch(breakfastBuilderActions.removeItem(itemName))
     }
 };
 
