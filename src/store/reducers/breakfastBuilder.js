@@ -46,6 +46,7 @@ const breakfastBuilder = (state = initialState, action) => {
                     yogurt: action.items.yogurt,
                     salad: action.items.salad
                 },
+                totalPrice: 0,
                 error: false
             };
         case actionTypes.FETCH_ITEMS_FAILED:
