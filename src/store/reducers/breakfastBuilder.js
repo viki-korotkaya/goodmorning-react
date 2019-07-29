@@ -1,15 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    items: {
-        coffee: 0,
-        tea: 0,
-        sugar: 0,
-        croissant: 0,
-        yogurt: 0,
-        salad: 0
-    },
-    totalPrice: 0
+    items: null,
+    totalPrice: 0,
+    error: false
 };
 
 const ITEM_PRICES = {
@@ -40,6 +34,24 @@ const breakfastBuilder = (state = initialState, action) => {
                     [action.itemName]: state.items[action.itemName] - 1
                 },
                 totalPrice: state.totalPrice - ITEM_PRICES[action.itemName]
+            };
+        case actionTypes.SET_ITEMS:
+            return {
+                ...state,
+                items: {
+                    coffee: action.items.coffee,
+                    tea: action.items.tea,
+                    sugar: action.items.sugar,
+                    croissant: action.items.croissant,
+                    yogurt: action.items.yogurt,
+                    salad: action.items.salad
+                },
+                error: false
+            };
+        case actionTypes.FETCH_ITEMS_FAILED:
+            return {
+                ...state,
+                error: true
             };
         default: return state;
     }

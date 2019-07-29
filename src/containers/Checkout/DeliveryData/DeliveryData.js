@@ -7,6 +7,8 @@ import Button from "../../../components/UI/Button/Button";
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 class DeliveryData extends Component {
     state = {
@@ -75,8 +77,7 @@ class DeliveryData extends Component {
             }
 
         },
-        formIsValid: false,
-        loading: false
+        formIsValid: false
     };
 
     checkValidity(val, rules){
@@ -112,7 +113,7 @@ class DeliveryData extends Component {
 
     placeOrder = ( event ) => {
         event.preventDefault();
-        this.setState( { loading: true } );
+
         const formData = {};
         for (let identifier in this.state.orderForm){
             formData[identifier] = this.state.orderForm[identifier].value;
@@ -121,15 +122,10 @@ class DeliveryData extends Component {
             items: this.props.items,
             price: this.props.price,
             orderDate: formData
-        }
-        axios.post( '/orders.json', order )
-            .then( response => {
-                this.setState( { loading: false } );
-                this.props.history.push('/');
-            } )
-            .catch( error => {
-                this.setState( { loading: false } );
-            } );
+        };
+
+        this.props.onOrderBreakfast(order);
+
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -154,6 +150,7 @@ class DeliveryData extends Component {
     };
 
     render (){
+
         const formElementsArr = [];
         for (let key in this.state.orderForm){
             formElementsArr.push({
@@ -177,7 +174,7 @@ class DeliveryData extends Component {
                 <Button btnType="Success" disabled={!this.state.formIsValid}>PLACE ORDER</Button>
             </form>
         );
-        if (this.state.loading){
+        if (this.props.loading){
             form = <Spinner />;
         }
         return (
@@ -192,15 +189,23 @@ class DeliveryData extends Component {
             </div>
         );
     }
-};
+}
 
 const mapStateToProps = state => {
     return {
-        items: state.items,
-        price: state.totalPrice
-    }
+        items: state.breakfastBuilder.items,
+        price: state.breakfastBuilder.totalPrice,
+        loading: state.orderReducer.loading,
+        purchased: state.orderReducer.purhased
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBreakfast: (orderData) => dispatch(actions.purchaseBreakfast(orderData))
+    };
 };
 
 
 
-export default connect(mapStateToProps)(withRouter(DeliveryData));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(DeliveryData, axios));

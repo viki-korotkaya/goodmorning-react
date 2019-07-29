@@ -1,5 +1,9 @@
 export {
     addItem,
-    removeItem
+    removeItem,
+    fetchItems
 } from './breakfastBuilder';
-export {} from './order';
+export {
+    purchaseBreakfast,
+    purchaseInit
+} from './order';

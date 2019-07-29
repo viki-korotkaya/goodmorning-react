@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import DeliveryData from './DeliveryData/DeliveryData';
 import axios from '../../axios-orders';
 import Button from "../../components/UI/Button/Button";
+import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
+
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
     }
@@ -40,15 +44,26 @@ class Checkout extends Component {
     }
 
     render () {
-        return (
+        let summary = (
             <div>
 
-                <CheckoutSummary
-                    items={this.props.items}
-                    />
+                <CheckoutSummary items={this.props.items} />
                 <DeliveryData
                     canceled={this.checkoutCancelledHandler}
-                    placedorder={this.checkoutContinuedHandler}/>
+                    placedorder={this.checkoutContinuedHandler} />
+            </div>
+
+        );
+
+        if (!this.props.items || this.props.purchased){
+            summary = <Redirect to="/" />
+        }
+
+
+
+        return (
+            <div>
+                {summary}
             </div>
         );
     }
@@ -56,8 +71,10 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.items
-    }
+        items: state.breakfastBuilder.items,
+        purchased: state.orderReducer.purchased
+    };
 };
+
 
 export default connect(mapStateToProps)(Checkout);

@@ -6,29 +6,20 @@ import Breakfast from '../../components/Breakfast/Breakfast';
 import BuildControls from '../../components/Breakfast/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Breakfast/OrderSummary/OrderSummary';
-import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Checkout from '../Checkout/Checkout';
-import * as breakfastBuilderActions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
+import axios from '../../axios-orders';
 
 class BreakfastBuilder extends Component {
 
     state = {
-
-        purchasing: false,
-        loading: false,
-        error: false
+        purchasing: false
     };
 
     componentDidMount() {
-        axios.get('https://goodmorning-react.firebaseio.com/items.json')
-            .then(response => {
-                this.setState({items: response.data})
-            })
-            .catch(error => {
-                this.setState({error: true})
-            });
+        this.props.onFetchItems();
     }
 
     updatePurchaseState (items) {
@@ -51,6 +42,7 @@ class BreakfastBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     };
 
@@ -62,7 +54,7 @@ class BreakfastBuilder extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
         let orderSummary = null;
-        let breakfast = this.state.error ? <p>Items can't be loaded!></p> : <Spinner />;
+        let breakfast = this.props.error ? <p>Items can't be loaded!</p> : <Spinner />;
 
         if (this.props.items){
             breakfast = (
@@ -83,9 +75,6 @@ class BreakfastBuilder extends Component {
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
         }
-        if ( this.state.loading ) {
-            orderSummary = <Spinner />;
-        }
 
         return (
             <Aux>
@@ -100,16 +89,19 @@ class BreakfastBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.items,
-        totalPrice: state.totalPrice
+        items: state.breakfastBuilder.items,
+        totalPrice: state.breakfastBuilder.totalPrice,
+        error: state.breakfastBuilder.error
     }
 };
 
 
 const mapDispatchToProps = dispatch => {
     return {
-        onItemAdded: (itemName) => dispatch(breakfastBuilderActions.addItem(itemName)),
-        onItemRemoved: (itemName) => dispatch(breakfastBuilderActions.removeItem(itemName))
+        onItemAdded: (itemName) => dispatch(actions.addItem(itemName)),
+        onItemRemoved: (itemName) => dispatch(actions.removeItem(itemName)),
+        onFetchItems: () => dispatch(actions.fetchItems()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     }
 };
 
