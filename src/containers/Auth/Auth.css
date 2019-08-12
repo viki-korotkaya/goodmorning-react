@@ -1,0 +1,15 @@
+.Auth {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.Auth form {
+    display: block;
+    width: 70%;
+    box-sizing: border-box;
+    border: 1px solid #e2cdc9;
+    box-shadow: 0 2px 3px #c6a09d;
+    margin: 0 auto;
+    padding: 10px;
+}
