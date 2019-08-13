@@ -144,7 +144,7 @@ class DeliveryData extends Component {
             orderDate: formData
         };
 
-        this.props.onOrderBreakfast(order);
+        this.props.onOrderBreakfast(order, this.props.token);
 
     };
 
@@ -216,13 +216,14 @@ const mapStateToProps = state => {
         items: state.breakfastBuilder.items,
         price: state.breakfastBuilder.totalPrice,
         loading: state.orderReducer.loading,
-        purchased: state.orderReducer.purhased
+        purchased: state.orderReducer.purhased,
+        token: state.authReducer.token
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBreakfast: (orderData) => dispatch(actions.purchaseBreakfast(orderData))
+        onOrderBreakfast: (orderData, token) => dispatch(actions.purchaseBreakfast(orderData, token))
     };
 };
 
