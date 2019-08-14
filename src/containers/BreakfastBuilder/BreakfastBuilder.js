@@ -34,7 +34,12 @@ class BreakfastBuilder extends Component {
     };
 
     purchaseHandler = () => {
-        this.setState({purchasing: true});
+        if (this.props.isAuthenticated){
+            this.setState({purchasing: true});
+        } else {
+            this.props.onSetAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
     };
 
     purchaseCancelHandler = () => {
@@ -65,6 +70,7 @@ class BreakfastBuilder extends Component {
                         disabled={disabledInfo}
                         purchasable={this.updatePurchaseState(this.props.items)}
                         ordered={this.purchaseHandler}
+                        isAuth={this.props.isAuthenticated}
                         price={this.props.totalPrice} />
                     <Breakfast items={this.props.items} />
                 </Aux>
@@ -91,7 +97,8 @@ const mapStateToProps = state => {
     return {
         items: state.breakfastBuilder.items,
         totalPrice: state.breakfastBuilder.totalPrice,
-        error: state.breakfastBuilder.error
+        error: state.breakfastBuilder.error,
+        isAuthenticated: state.authReducer.token != null
     }
 };
 
@@ -101,7 +108,8 @@ const mapDispatchToProps = dispatch => {
         onItemAdded: (itemName) => dispatch(actions.addItem(itemName)),
         onItemRemoved: (itemName) => dispatch(actions.removeItem(itemName)),
         onFetchItems: () => dispatch(actions.fetchItems()),
-        onInitPurchase: () => dispatch(actions.purchaseInit())
+        onInitPurchase: () => dispatch(actions.purchaseInit()),
+        onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
     }
 };
 
