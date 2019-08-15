@@ -9,6 +9,7 @@ import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import {updateObject, checkValidity} from "../../../shared/utility";
 
 class DeliveryData extends Component {
     state = {
@@ -82,55 +83,6 @@ class DeliveryData extends Component {
         formIsValid: false
     };
 
-    checkValidity(val, rules){
-        let isValid = false;
-
-        let requiredRule = (() =>{
-            if(rules.required){
-                return  val.trim() !=='';
-            } else {
-                return true;
-            }
-        })();
-
-        let minLengthRule = (() =>{
-            if(rules.minLength){
-                return val.length >= rules.minLength;
-            } else {
-                return true;
-            }
-        })();
-
-        let maxLengthRule = (() =>{
-            if(rules.maxLength){
-                return val.length <= rules.maxLength;
-            } else {
-                return true;
-            }
-        })();
-
-        let emailRule = (() =>{
-            if(rules.isEmail){
-                const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-                return pattern.test(val);
-            } else {
-                return true;
-            }
-        })();
-
-        let numericRule = (() =>{
-            if(rules.isNumeric){
-                const pattern = /^\d+$/;
-                return pattern.test(val);
-            } else {
-                return true;
-            }
-        })();
-
-        isValid = requiredRule && minLengthRule && maxLengthRule && emailRule && numericRule;
-        return isValid;
-    };
-
     placeOrder = ( event ) => {
         event.preventDefault();
 
@@ -150,24 +102,22 @@ class DeliveryData extends Component {
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
-        const changedForm = {
-            ...this.state.orderForm
-        };
-        const updatedFormElement = {
-            ...changedForm[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
 
-        changedForm[inputIdentifier] = updatedFormElement;
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier],{
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched: true
+        });
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedFormElement
+        })
 
         let formIsValid = true;
-        for (let identifier in changedForm) {
-            formIsValid = changedForm[identifier].valid && formIsValid;
+        for (let identifier in updatedOrderForm) {
+            formIsValid = updatedOrderForm[identifier].valid && formIsValid;
         }
 
-        this.setState({orderForm: changedForm, formIsValid: formIsValid});
+        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
     };
 
     render (){

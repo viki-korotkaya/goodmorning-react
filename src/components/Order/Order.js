@@ -3,7 +3,6 @@ import React from 'react';
 import classes from './Order.css';
 
 const order = (props) => {
-    console.log(props.items);
     const itemsOfOrder = [];
     for (let item in props.items){
         let b = item;

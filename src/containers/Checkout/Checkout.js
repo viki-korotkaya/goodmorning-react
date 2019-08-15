@@ -6,8 +6,6 @@ import {Redirect} from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import DeliveryData from './DeliveryData/DeliveryData';
 import axios from '../../axios-orders';
-import Button from "../../components/UI/Button/Button";
-import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
 

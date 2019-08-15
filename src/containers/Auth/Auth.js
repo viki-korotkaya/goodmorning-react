@@ -7,7 +7,7 @@ import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.css';
 import * as actions from '../../store/actions/index';
-import breakfastBuilderReducer from "../../store/reducers/breakfastBuilder";
+import {updateObject, checkValidity} from "../../shared/utility";
 
 class Auth extends Component {
     state = {
@@ -48,65 +48,14 @@ class Auth extends Component {
         }
     }
 
-    checkValidity(val, rules){
-        let isValid = false;
-
-        let requiredRule = (() =>{
-            if(rules.required){
-                return  val.trim() !=='';
-            } else {
-                return true;
-            }
-        })();
-
-        let minLengthRule = (() =>{
-            if(rules.minLength){
-                return val.length >= rules.minLength;
-            } else {
-                return true;
-            }
-        })();
-
-        let maxLengthRule = (() =>{
-            if(rules.maxLength){
-                return val.length <= rules.maxLength;
-            } else {
-                return true;
-            }
-        })();
-
-        let emailRule = (() =>{
-            if(rules.isEmail){
-                const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-                return pattern.test(val);
-            } else {
-                return true;
-            }
-        })();
-
-        let numericRule = (() =>{
-            if(rules.isNumeric){
-                const pattern = /^\d+$/;
-                return pattern.test(val);
-            } else {
-                return true;
-            }
-        })();
-
-        isValid = requiredRule && minLengthRule && maxLengthRule && emailRule && numericRule;
-        return isValid;
-    };
-
     inputChangedHandler = (ev, controlItem) => {
-        const updatedControls = {
-            ...this.state.controls,
-            [controlItem]: {
-                ...this.state.controls[controlItem],
+        const updatedControls = updateObject(this.state.controls, {
+            [controlItem]: updateObject(this.state.controls[controlItem], {
                 value: ev.target.value,
-                valid: this.checkValidity(ev.target.value, this.state.controls[controlItem].validation),
+                valid: checkValidity(ev.target.value, this.state.controls[controlItem].validation),
                 touched: true
-            }
-        }
+            })
+        });
         this.setState({controls: updatedControls});
     };
 
