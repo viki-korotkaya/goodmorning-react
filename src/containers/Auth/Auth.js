@@ -8,6 +8,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.css';
 import * as actions from '../../store/actions/index';
 import {updateObject, checkValidity} from "../../shared/utility";
+import * as errorMap from '../../shared/errorMap';
 
 class Auth extends Component {
     state = {
@@ -39,7 +40,8 @@ class Auth extends Component {
                 touched: false
             }
         },
-        isSignup: true
+        isSignup: true,
+        isValid: false
     };
 
     componentDidMount() {
@@ -56,7 +58,12 @@ class Auth extends Component {
                 touched: true
             })
         });
-        this.setState({controls: updatedControls});
+        let formIsValid = true;
+        for (let identifier in updatedControls) {
+            formIsValid = updatedControls[identifier].valid && formIsValid;
+        }
+
+        this.setState({controls: updatedControls, formIsValid: formIsValid});
     };
 
     submitHandler = (event) => {
@@ -95,8 +102,9 @@ class Auth extends Component {
 
         let errorMessage = null;
         if (this.props.error){
+            let message = errorMap[this.props.error.message] ? errorMap[this.props.error.message] : this.props.error.message ;
             errorMessage = (
-                <p>{this.props.error.message}</p>
+                <p className={classes.AuthError}>{message}</p>
             );
         }
 
@@ -110,11 +118,11 @@ class Auth extends Component {
                 {authRedirect}
                 <Button
                     clicked={this.switchAuthModeHandler}
-                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
+                    btnType="Danger">Swith to {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
                 <form onSubmit={this.submitHandler}>
                     {form}
                     {errorMessage}
-                    <Button btnType="Success">SUBMIT</Button>
+                    <Button btnType="Success" disabled={!this.state.formIsValid}>{this.state.isSignup ? 'SIGNUP' : 'SIGNIN' }</Button>
                 </form>
 
             </div>

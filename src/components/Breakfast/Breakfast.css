@@ -1,5 +1,5 @@
 .Breakfast {
-    width: 350px;
+    /*width: 350px;*/
     margin: 0 auto;
     padding: 5px;
     height: 162px;
@@ -14,6 +14,13 @@
 
 .Breakfast p {
     margin: 20px auto;
+}
+
+@media (min-width: 400px) {
+    .Breakfast {
+
+
+    }
 }
 
 
