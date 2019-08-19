@@ -12,7 +12,7 @@ import Checkout from '../Checkout/Checkout';
 import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 
-class BreakfastBuilder extends Component {
+export class BreakfastBuilder extends Component {
 
     state = {
         purchasing: false
