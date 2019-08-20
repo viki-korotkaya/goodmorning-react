@@ -22,11 +22,11 @@ class Orders extends Component {
                 <Order
                     key={order.id}
                     items={order.items}
-                    price={order.price} />
+                    price={Number.parseFloat(order.price).toFixed(2)} />
             ));
         }
         return (
-            <div>
+            <div style={{paddingTop: '15px' }}>
                 {orders}
             </div>
         );
