@@ -17,13 +17,19 @@ class Orders extends Component {
 
         let orders = <Spinner />;
 
-        if (!this.props.loading){
+        if (!this.props.loading && this.props.orders.length !== 0){
             orders = this.props.orders.map(order => (
                 <Order
                     key={order.id}
                     items={order.items}
                     price={Number.parseFloat(order.price).toFixed(2)} />
             ));
+        } else if (!this.props.loading && this.props.orders.length === 0) {
+            orders = <p style={{
+                paddingLeft: '15px',
+                fontWeight: 'bold',
+                fontSize: '1.2rem'
+            }}>Your history of orders is empty</p>;
         }
         return (
             <div style={{paddingTop: '15px' }}>

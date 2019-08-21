@@ -20,3 +20,9 @@
     margin: 0 auto;
     padding: 10px;
 }
+
+@media (min-width: 550px) {
+    .DeliveryData form {
+        width: 500px;
+    }
+}
