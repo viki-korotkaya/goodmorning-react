@@ -1,0 +1,66 @@
+.Cofeeshop {
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+    overflow-x: hidden;
+    background: linear-gradient(to left top, rgb(171, 161, 159), white );
+}
+
+.header {
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    transform: translate(-50%,0);
+    z-index: 5;
+    width: 100%;
+    padding-top: 5%;
+}
+.header h2 {
+    text-align: center;
+    color: rgba(191, 191, 191, 0.85);
+    font-size: 1.2em;
+}
+
+.GoodMorning {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1em;
+    padding: 0 25px;
+    color: rgba(241, 241, 241, 0.95);
+}
+
+@media (min-width: 570px) {
+    .header {
+        padding-top: 0;
+    }
+    .header h2 {
+        font-size: 1.5em;
+    }
+    .GoodMorning {
+        font-size: 1.5em;
+    }
+}
+
+/*.header h3 {*/
+/*    margin: 0;*/
+/*    background: linear-gradient(to top, rgba(221, 115, 115, 0.27), rgba(152, 86, 86, 0.86));*/
+/*    -webkit-background-clip: text;*/
+/*    -webkit-text-fill-color: transparent;*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

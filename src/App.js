@@ -6,6 +6,7 @@ import asyncComponent from "./hoc/asyncComponent/asyncComponent";
 import Layout from './hoc/Layout/Layout';
 import BreakfastBuilder from './containers/BreakfastBuilder/BreakfastBuilder';
 import Logout from "./containers/Auth/Logout/Logout";
+import Cofeeshop from "./containers/Cofeeshop/Cofeeshop";
 import * as actions from './store/actions/index';
 
 const asyncCheckout= asyncComponent(() => {
@@ -28,6 +29,7 @@ class App extends Component{
     render () {
         let routes = (
             <Switch>
+                <Route path="/about" component={Cofeeshop}/>
                 <Route path="/auth" component={asyncAuth}/>
                 <Route path="/" exact component={BreakfastBuilder}/>
                 <Redirect to="/" />
@@ -41,6 +43,7 @@ class App extends Component{
                     <Route path="/logout" component={Logout}/>
                     <Route path="/checkout" component={asyncCheckout}/>
                     <Route path="/" exact component={BreakfastBuilder}/>
+                    <Route path="/about" component={Cofeeshop}/>
                     <Redirect to="/" />
                 </Switch>
             );
