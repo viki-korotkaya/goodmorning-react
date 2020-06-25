@@ -12,11 +12,17 @@ const breakfast = ( props ) => {
         .reduce((arr, el) => {
             return arr.concat(el)
         }, []);
+
+    let shopCartTitle = null;
     if (transformedItems.length === 0) {
-        transformedItems = <p>Please start creating your breakfast!</p>;
+        transformedItems = <p>Please start creating your order!</p>;
+    } else {
+        shopCartTitle = <p>In your Shopping Cart:</p>;
     }
+
     return (
         <div className={classes.Breakfast}>
+            {shopCartTitle}
             {transformedItems}
         </div>
     );

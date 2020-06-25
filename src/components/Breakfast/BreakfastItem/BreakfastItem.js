@@ -17,23 +17,23 @@ class BreakfastItem extends Component {
         let item = null;
 
         switch ( this.props.type ) {
-            case ( 'coffee' ):
-                item = <div className={classes.Item}><img src={coffee} alt="Cup of coffee" /><p>Qty: {this.props.qty}</p></div>;
+            case ( 'espresso' ):
+                item = <div className={classes.Item}><p>Espresso, 3 fl oz - <span className={classes.qty}>qty: {this.props.qty}</span></p></div>;
                 break;
-            case ( 'tea' ):
-                item = <div className={classes.Item}><img src={tea} alt="Cup of tea" /><p>Qty: {this.props.qty}</p></div>;
+            case ( 'americano' ):
+                item = <div className={classes.Item}><p>Americano, 8 fl oz - <span className={classes.qty}>qty: {this.props.qty}</span></p></div>;
                 break;
-            case ( 'sugar' ):
-                item = <div className={classes.Item}><img src={sugar} alt="Sugar" /><p>Qty: {this.props.qty}</p></div>;
+            case ( 'cappuccino' ):
+                item = <div className={classes.Item}><p>Cappuccino, 16 fl oz - <span className={classes.qty}>qty: {this.props.qty}</span></p></div>;
                 break;
-            case ( 'croissant' ):
-                item = <div className={classes.Item}><img src={croissant} alt="Croissant" /><p>Qty: {this.props.qty}</p></div>;
+            case ( 'latte' ):
+                item = <div className={classes.Item}><p>Latte, 16 fl oz - <span className={classes.qty}>qty: {this.props.qty}</span></p></div>;
                 break;
-            case ( 'yogurt' ):
-                item = <div className={classes.Item}><img src={yogurt} alt="Yogurt" /><p>Qty: {this.props.qty}</p></div>;
+            case ( 'bigjoe' ):
+                item = <div className={classes.Item}><p>Big Joe, 20 fl oz - <span className={classes.qty}>qty: {this.props.qty}</span></p></div>;
                 break;
-            case ( 'salad' ):
-                item = <div className={classes.Item}><img src={salad} alt="Salad" /><p>Qty: {this.props.qty}</p></div>;
+            case ( 'hotchoc' ):
+                item = <div className={classes.Item}><p>Hot chocolate, 8 fl oz - <span className={classes.qty}>qty: {this.props.qty}</span></p></div>;
                 break;
             default:
                 item = null;

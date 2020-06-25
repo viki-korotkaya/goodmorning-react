@@ -1,4 +1,6 @@
-
+.Item {
+    padding: 5px 0;
+}
 .Item img {
     height: 100px;
     width: 100px;
@@ -9,6 +11,7 @@
     padding: 0;
     font-weight: normal;
     font-size: 0.7em;
+    color: rgba(21, 0, 25, 0.61);
 }
 
 
@@ -22,4 +25,10 @@
     .Item p {
         font-size: 0.9em;
     }
+}
+
+.qty {
+    color: #967593;
+    font-style: italic;
+    padding-left: 5px;
 }

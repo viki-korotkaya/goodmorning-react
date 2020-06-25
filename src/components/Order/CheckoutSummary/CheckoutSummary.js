@@ -7,7 +7,6 @@ import Button from "../../UI/Button/Button";
 const checkoutSummary = (props) => {
     return (
         <div className={classes.CheckoutSummary}>
-            <p>Mmm..., delicious!</p>
             <div style={{width: '100%', margin: 'auto'}}>
                 <Breakfast items={props.items}/>
             </div>

@@ -9,12 +9,12 @@ const initialState = {
 };
 
 const ITEM_PRICES = {
-    coffee: 4.5,
-    tea: 2.0,
-    sugar: 0.3,
-    croissant: 3.5,
-    yogurt: 3.0,
-    salad: 4.5
+    espresso: 2.5,
+    americano: 2.0,
+    cappuccino: 3.5,
+    latte: 3.2,
+    bigjoe: 5.0,
+    hotchoc: 4.5
 };
 
 const addItem = (state, action) => {
@@ -42,12 +42,12 @@ const removeItem = (state, action) => {
 const setItems = (state, action) => {
     return updateObject(state, {
         items: {
-            coffee: action.items.coffee,
-            tea: action.items.tea,
-            sugar: action.items.sugar,
-            croissant: action.items.croissant,
-            yogurt: action.items.yogurt,
-            salad: action.items.salad
+            espresso: action.items.espresso,
+            americano: action.items.americano,
+            cappuccino: action.items.cappuccino,
+            latte: action.items.latte,
+            bigjoe: action.items.bigjoe,
+            hotchoc: action.items.hotchoc
         },
         totalPrice: 0,
         error: false,
