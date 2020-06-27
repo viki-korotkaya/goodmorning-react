@@ -1,13 +1,13 @@
 import React from 'react';
 
-import classes from './Breakfast.css';
-import BreakfastItem from './BreakfastItem/BreakfastItem';
+import classes from './Shopping.css';
+import ShopItem from './ShopItem/ShopItem';
 
-const breakfast = ( props ) => {
+const shopping = ( props ) => {
     let transformedItems = Object.keys( props.items )
         .filter(igKey => props.items[igKey] > 0)
         .map( igKey => {
-            return <BreakfastItem key={igKey} type={igKey} qty={props.items[igKey]}/>;
+            return <ShopItem key={igKey} type={igKey} qty={props.items[igKey]}/>;
         } )
         .reduce((arr, el) => {
             return arr.concat(el)
@@ -21,11 +21,11 @@ const breakfast = ( props ) => {
     }
 
     return (
-        <div className={classes.Breakfast}>
+        <div className={classes.Shopping}>
             {shopCartTitle}
             {transformedItems}
         </div>
     );
 };
 
-export default breakfast;
+export default shopping;

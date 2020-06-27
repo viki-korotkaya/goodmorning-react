@@ -61,7 +61,7 @@ const fetchItemsFailed = (state, action) => {
     });
 };
 
-const breakfastBuilder = (state = initialState, action) => {
+const shopBuilder = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_ITEM: return addItem(state, action);
         case actionTypes.REMOVE_ITEM: return removeItem(state, action);
@@ -71,4 +71,4 @@ const breakfastBuilder = (state = initialState, action) => {
     }
 };
 
-export default breakfastBuilder;
+export default shopBuilder;

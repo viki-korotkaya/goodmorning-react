@@ -5,7 +5,7 @@
     box-sizing: border-box;
     text-align: center;
     width: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
     background: linear-gradient(to left top, rgb(171, 161, 159), white );
 }
 

@@ -11,8 +11,8 @@ import hotchock from "../../assets/images/hotchock.jpg";
 const menu = (props) => (
     <div className={classes.Menu}>
         <section className={classes.section}>
-            <Fade left duration={3000} opposite >
-                <div left className={classes.photoMenu}><img src={espresso} alt="coffee"/></div>
+            <Fade left duration={3000}>
+                <div className={classes.photoMenu}><img src={espresso} alt="coffee"/></div>
                 <div className={classes.descriptionMenu}>
                     <h3>Espresso</h3>
                     Serving Size 3 fl oz<br/>

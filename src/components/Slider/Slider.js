@@ -10,11 +10,15 @@ class Slider extends Component {
     };
 
     componentDidMount(){
-        setTimeout(function () {
-            this.slideShow();
-        }.bind(this), this.state.imgDuration);
-
+        this.mounted = true;
+        if (this.mounted){
+            // this.timer();
+            this.timer1 = setTimeout(function () {
+                this.slideShow();
+            }.bind(this), this.state.imgDuration);
+        }
     }
+    // timer = setTimeout(this.slideShow.bind(this), this.state.imgDuration);
 
     slideShow = () => {
         if (this.state.index === this.props.imgArr.length -1){
@@ -25,18 +29,23 @@ class Slider extends Component {
             this.setState({index: currentIndex + 1});
         }
 
-        setTimeout(function () {
+        this.timer2 = setTimeout(function () {
             this.slideShow();
         }.bind(this), this.state.imgDuration);
     };
 
+    componentWillUnmount(){
+        this.mounted = false;
+        clearTimeout(this.timer1);
+        clearTimeout(this.timer2);
+    }
 
     render(){
 
         return (
 
                 <div id="slidersShow"  className={classes.picture}>
-                    <img className={classes.image} src={this.props.imgArr[this.state.index]} />
+                    <img className={classes.image} src={this.props.imgArr[this.state.index]} alt={'coffeeshop'} />
                 </div>
 
         )

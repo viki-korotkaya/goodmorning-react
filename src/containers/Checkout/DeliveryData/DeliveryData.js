@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import classes from './DeliveryData.css';
@@ -164,8 +163,8 @@ class DeliveryData extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.breakfastBuilder.items,
-        price: state.breakfastBuilder.totalPrice,
+        items: state.shopBuilder.items,
+        price: state.shopBuilder.totalPrice,
         loading: state.orderReducer.loading,
         purchased: state.orderReducer.purhased,
         token: state.authReducer.token,
@@ -175,7 +174,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBreakfast: (orderData, token) => dispatch(actions.purchaseBreakfast(orderData, token))
+        onOrderBreakfast: (orderData, token) => dispatch(actions.purchase(orderData, token))
     };
 };
 

@@ -11,7 +11,7 @@ class Checkout extends Component {
 
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
-    }
+    };
 
     checkoutContinuedHandler = () => {
         // this.setState( { loading: true } );
@@ -39,12 +39,11 @@ class Checkout extends Component {
                     // loading: false,
                     purchasing: false } );
             } );
-    }
+    };
 
     render () {
         let summary = (
             <div>
-
                 <CheckoutSummary items={this.props.items} />
                 <DeliveryData
                     canceled={this.checkoutCancelledHandler}
@@ -52,7 +51,6 @@ class Checkout extends Component {
             </div>
 
         );
-
         if (!this.props.items || this.props.purchased){
             summary = <Redirect to="/" />
         }
@@ -69,10 +67,9 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.breakfastBuilder.items,
+        items: state.shopBuilder.items,
         purchased: state.orderReducer.purchased
     };
 };
-
 
 export default connect(mapStateToProps)(Checkout);

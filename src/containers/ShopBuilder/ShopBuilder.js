@@ -2,24 +2,25 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 
 import Aux from '../../hoc/Auxiliary/Auxiliary';
-import Breakfast from '../../components/Breakfast/Breakfast';
-import BuildControls from '../../components/Breakfast/BuildControls/BuildControls';
+import Shopping from '../../components/Shopping/Shopping';
+import BuildControls from '../../components/Shopping/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
-import OrderSummary from '../../components/Breakfast/OrderSummary/OrderSummary';
+import OrderSummary from '../../components/Shopping/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import Checkout from '../Checkout/Checkout';
 import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 
-export class BreakfastBuilder extends Component {
+export class ShopBuilder extends Component {
 
     state = {
         purchasing: false
     };
 
     componentDidMount() {
-        this.props.onFetchItems();
+        if(!this.props.items || this.props.purchased){
+            this.props.onFetchItems();
+        }
     }
 
     updatePurchaseState (items) {
@@ -59,10 +60,10 @@ export class BreakfastBuilder extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
         let orderSummary = null;
-        let breakfast = this.props.error ? <p>Items can't be loaded!</p> : <Spinner />;
+        let shopping = this.props.error ? <p>Items can't be loaded!</p> : <Spinner />;
 
         if (this.props.items){
-            breakfast = (
+            shopping = (
                 <Aux>
                     <BuildControls
                         itemAdded={this.props.onItemAdded}
@@ -72,7 +73,7 @@ export class BreakfastBuilder extends Component {
                         ordered={this.purchaseHandler}
                         isAuth={this.props.isAuthenticated}
                         price={this.props.totalPrice} />
-                    <Breakfast items={this.props.items} />
+                    <Shopping items={this.props.items} />
                 </Aux>
             );
             orderSummary = <OrderSummary
@@ -87,7 +88,7 @@ export class BreakfastBuilder extends Component {
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
                     {orderSummary}
                 </Modal>
-                {breakfast}
+                {shopping}
             </Aux>
         );
     }
@@ -95,10 +96,11 @@ export class BreakfastBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.breakfastBuilder.items,
-        totalPrice: state.breakfastBuilder.totalPrice,
-        error: state.breakfastBuilder.error,
-        isAuthenticated: state.authReducer.token != null
+        items: state.shopBuilder.items,
+        totalPrice: state.shopBuilder.totalPrice,
+        error: state.shopBuilder.error,
+        isAuthenticated: state.authReducer.token != null,
+        purchased: state.orderReducer.purchased
     }
 };
 
@@ -113,4 +115,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BreakfastBuilder, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ShopBuilder, axios));

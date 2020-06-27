@@ -5,7 +5,6 @@ import classes from './Order.css';
 const order = (props) => {
     const itemsOfOrder = [];
     for (let item in props.items){
-        let b = item;
         itemsOfOrder.push({
             name: item,
             quantity: props.items[item]
@@ -19,7 +18,7 @@ const order = (props) => {
 
         return (
             <div className={classes.Order}>
-                <h4>Your previous breakfast</h4>
+                <h4>Your previous order</h4>
                 {outputItems}
                 <p>Price: <strong>{props.price} USD </strong></p>
             </div>

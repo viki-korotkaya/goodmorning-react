@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './BreakfastItem.css';
-import coffee from "../../../assets/images/coffee.png";
-import tea from "../../../assets/images/tea.png";
-import sugar from "../../../assets/images/sugar.jpg";
-import croissant from "../../../assets/images/croissant.jpeg";
-import yogurt from "../../../assets/images/yogurt.jpg";
-import salad from "../../../assets/images/salad.png";
+import classes from './ShopItem.css';
 
-
-
-
-class BreakfastItem extends Component {
+class ShopItem extends Component {
     render () {
         let item = null;
 
@@ -43,8 +34,8 @@ class BreakfastItem extends Component {
     }
 }
 
-BreakfastItem.propTypes = {
+ShopItem.propTypes = {
     type: PropTypes.string.isRequired
 };
 
-export default BreakfastItem;
+export default ShopItem;

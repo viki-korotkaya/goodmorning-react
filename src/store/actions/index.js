@@ -2,9 +2,9 @@ export {
     addItem,
     removeItem,
     fetchItems
-} from './breakfastBuilder';
+} from './shopBuilder';
 export {
-    purchaseBreakfast,
+    purchase,
     purchaseInit,
     fetchOrders
 } from './order';

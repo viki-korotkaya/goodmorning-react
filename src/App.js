@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import asyncComponent from "./hoc/asyncComponent/asyncComponent";
 import Layout from './hoc/Layout/Layout';
-import BreakfastBuilder from './containers/BreakfastBuilder/BreakfastBuilder';
+import ShopBuilder from './containers/ShopBuilder/ShopBuilder';
 import Logout from "./containers/Auth/Logout/Logout";
 import Cofeeshop from "./containers/Cofeeshop/Cofeeshop";
 import * as actions from './store/actions/index';
@@ -31,7 +31,7 @@ class App extends Component{
             <Switch>
                 <Route path="/about" component={Cofeeshop}/>
                 <Route path="/auth" component={asyncAuth}/>
-                <Route path="/" exact component={BreakfastBuilder}/>
+                <Route path="/" exact component={ShopBuilder}/>
                 <Redirect to="/" />
             </Switch>
         );
@@ -42,7 +42,7 @@ class App extends Component{
                     <Route path="/orders" component={asyncOrders}/>
                     <Route path="/logout" component={Logout}/>
                     <Route path="/checkout" component={asyncCheckout}/>
-                    <Route path="/" exact component={BreakfastBuilder}/>
+                    <Route path="/" exact component={ShopBuilder}/>
                     <Route path="/about" component={Cofeeshop}/>
                     <Redirect to="/" />
                 </Switch>

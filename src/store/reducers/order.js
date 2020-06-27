@@ -11,11 +11,11 @@ const purchaseInit = (state, action) => {
     return updateObject(state, {purchased: false});
 };
 
-const purchaseBreakfastStart = (state, action) => {
+const purchaseStart = (state, action) => {
     return updateObject(state, {loading: true});
 };
 
-const purchaseBreakfastSuccess = (state, action) => {
+const purchaseSuccess = (state, action) => {
     const newOrder = updateObject(action.orderData, {id: action.orderId});
     return updateObject(state, {
         loading: false,
@@ -24,7 +24,7 @@ const purchaseBreakfastSuccess = (state, action) => {
     });
 };
 
-const purchaseBreakfastFail = (state, action) => {
+const purchaseFail = (state, action) => {
     return updateObject(state, {loading: false});
 };
 
@@ -46,9 +46,9 @@ const fetchOrderFail = (state, action) => {
 const reducer = (state = initialState, action) => {
     switch (action.type){
         case actionTypes.PURCHASE_INIT: return purchaseInit(state, action);
-        case actionTypes.PURCHASE_BREAKFAST_START: return purchaseBreakfastStart(state, action);
-        case actionTypes.PURCHASE_BREAKFAST_SUCCESS: return purchaseBreakfastSuccess(state, action);
-        case actionTypes.PURCHASE_BREAKFAST_FAIL: return purchaseBreakfastFail(state, action);
+        case actionTypes.PURCHASE_START: return purchaseStart(state, action);
+        case actionTypes.PURCHASE_SUCCESS: return purchaseSuccess(state, action);
+        case actionTypes.PURCHASE_FAIL: return purchaseFail(state, action);
         case actionTypes.FETCH_ORDERS_START: return fetchOrderStart(state, action);
         case actionTypes.FETCH_ORDERS_SUCCESS: return fetchOrderSuccess(state, action);
         case actionTypes.FETCH_ORDERS_FAIL: return fetchOrderFail(state, action);

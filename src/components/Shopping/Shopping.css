@@ -1,4 +1,4 @@
-.Breakfast {
+.Shopping {
     /*width: 350px;*/
     margin: 0 auto;
     padding: 5px;
@@ -10,24 +10,14 @@
     flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
-
 }
 
-.Breakfast p {
+.Shopping p {
     margin: 20px auto;
 }
 
-@media (min-width: 400px) {
-    .Breakfast {
-
-
-    }
-}
-
-
-
 @media (min-width: 600px) {
-    .Breakfast {
+    .Shopping {
         flex-wrap: nowrap;
 
     }

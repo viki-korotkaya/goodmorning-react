@@ -2,15 +2,15 @@ import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import {BreakfastBuilder} from "./BreakfastBuilder";
-import BuildControls from '../../components/Breakfast/BuildControls/BuildControls';
+import {ShopBuilder} from "./ShopBuilder";
+import BuildControls from '../../components/Shopping/BuildControls/BuildControls';
 
 configure({adapter: new Adapter()});
 
-describe('<BreakfastBuilder />', () => {
+describe('<ShopBuilder />', () => {
     let wrapper;
     beforeEach(() => {
-        wrapper = shallow(<BreakfastBuilder onFetchItems={() => {}} />);
+        wrapper = shallow(<ShopBuilder onFetchItems={() => {}} />);
     });
 
     it('should render <BuildControls /> when receiving items', () => {

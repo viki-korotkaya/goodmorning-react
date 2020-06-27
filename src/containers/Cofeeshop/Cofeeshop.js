@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 
-import {connect} from 'react-redux';
-import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import axios from "../../axios-orders";
 import coffeeshop1 from '../../assets/images/coffeeshop1.jpeg';
 import coffeeshop2 from '../../assets/images/coffeeshop2.jpg';
 import coffeeshop3 from '../../assets/images/coffeeshop3.jpg';
@@ -27,7 +24,6 @@ class Cofeeshop extends Component {
                                 </div>
                                 <Slider imgArr={imgArr}  />
                                 <Menu  />
-
                         </div>
                 )
 
